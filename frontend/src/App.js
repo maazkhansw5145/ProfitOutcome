@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./Services/Redux/store";
 
-import Login from "./Pages/Login";
+import Login from "./Pages/DiscordLogin";
 import Homepage from "./Pages/Homepage";
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route exact path="/home" component={Homepage} />
+            <Route exact path="/auth/discord" component={Homepage} />
           </Switch>
         </Router>
       </PersistGate>

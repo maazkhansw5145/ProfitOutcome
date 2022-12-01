@@ -1,15 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
-
-import { connect } from "react-redux";
 import { Logout, Login} from '@mui/icons-material';
 
-import { logout } from "../Services/Redux/actions/authActions";
-
 const Header = (props) => {
-  const { isAuthenticated } = props.auth;
+  const { isAuthenticated } = props;
 
   return (
     <div>
@@ -29,7 +23,7 @@ const Header = (props) => {
               <IconButton color="inherit"><Login /></IconButton>
             </a>
           ) : (
-            <IconButton color="inherit" onClick={() => props.logout()}>
+            <IconButton color="inherit" onClick={() => props.signOut()}>
               <Logout />
             </IconButton>
           )}
@@ -39,8 +33,4 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logout })(Header);
+export default Header;

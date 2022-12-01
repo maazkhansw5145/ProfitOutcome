@@ -12,6 +12,7 @@ import {
   Fingerprint,
 } from "@mui/icons-material";
 import Loading from "../Components/Loading";
+import Discordlogin from "./Discordlogin";
 
 const LoginForm = (props) => {
   const [loginId, setLoginId] = useState("");
@@ -21,10 +22,10 @@ const LoginForm = (props) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(props.auth.msg)
+    console.log(props.auth.msg);
     if (props.auth.msg === "Login Successfully") {
       props.history.push(`/home`);
-console.log("push to home")
+      console.log("push to home");
     }
   }, [props.auth.msg]);
 
@@ -45,11 +46,41 @@ console.log("push to home")
 
   return (
     <div style={{ textAlign: "center" }}>
-      <div style={{ display: "flex", marginBottom: "45px",justifyContent:'center' }} className="title">
+      <div
+        style={{
+          display: "flex",
+          marginBottom: "45px",
+          justifyContent: "center",
+        }}
+        className="title"
+      >
         <h3>Profit Outcome</h3>
       </div>
       <h2 style={{ marginBottom: 50 }}>Login</h2>
       <div>
+        {/* <a
+          href="https://discord.com/api/oauth2/authorize?client_id=1047482757523193867&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord&response_type=code&scope=identify"
+          style={{
+            backgroundColor: "#7289DA",
+            borderRadius: 10,
+            display: "flex",
+            color: "white",
+            borderWidth: 0,
+            padding: "10px 25px",
+            textDecoration: "none",
+            width: 175,
+            margin: "20px auto",
+            alignItems:'center'
+            
+          }}
+        >
+         <img src={require('../Assets/download.png')} style={{width:30,height:30,marginRight:5}} alt="discord logo" /> 
+          Login with discord
+        </a> */}
+
+        <Discordlogin {...props} />
+
+        <h3 style={{ textAlign: "center" }}>Or</h3>
         <ValidatorForm onSubmit={handleSubmit}>
           <div style={{ marginBottom: "20px " }}>
             <div style={{ display: "inline-flex", marginBottom: "10px" }}>
@@ -112,7 +143,10 @@ console.log("push to home")
             </div>
           )}
 
-          <Grid container style={{ marginTop: "30px", justifyContent:'center' }}>
+          <Grid
+            container
+            style={{ marginTop: "30px", justifyContent: "center" }}
+          >
             {!loading ? (
               <Button
                 color="primary"
