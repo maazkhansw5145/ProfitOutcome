@@ -1,0 +1,14 @@
+.title {
+  background-color: cornflowerblue;
+  color: white;
+  text-align: center;
+}
+
+form {
+  display: none;
+}
+
+.auth {
+  width: "50%";
+  margin: "auto";
+}
