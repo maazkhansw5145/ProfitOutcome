@@ -37,10 +37,14 @@ function Homepage(props) {
   return (
     <div>
       <Navbar signOut={signOut} isAuthenticated={props.auth.isAuthenticated} />
-      {props.auth.isAuthenticated ? (
+      {props.auth.isAuthenticated && props.auth?.role === "gold" ? (
         <>
           <h3 style={{ margin: 20, fontSize: 18 }}>Welcome to Homepage</h3>
         </>
+      ) : props.auth.isAuthenticated && props.auth?.role !== "gold" ? (
+        <h3 style={{ margin: 20, fontSize: 18 }}>
+          Your logged in but you are not authorized to access this page.
+        </h3>
       ) : (
         <>
           <h3 style={{ margin: 20 }}>You need to login to access this page.</h3>
