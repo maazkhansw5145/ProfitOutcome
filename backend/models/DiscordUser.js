@@ -2,13 +2,15 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   discordId: { type: String, required: true },
-  username: { type: String, required: true },
-  emailId: {
-    type: String,
-    unique: true,
-    required: true,
+  user: {
+    username: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+    },
   },
-  role: { type: String, required: true },
 });
 
 var DiscordUser = mongoose.model("User", UserSchema);
