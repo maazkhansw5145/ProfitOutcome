@@ -44,17 +44,6 @@ function Homepage(props) {
     props.logout();
     props.history.push("/");
   }
-  if(!props.auth.isAuthenticated){
-    return(
-      <div>
-         <Navbar
-          signOut={signOut}
-          isAuthenticated={props.auth.isAuthenticated}
-        />
-        <h2>Sorry You need to login first</h2>
-      </div>
-    )
-  }
   if (loading) {
     return (
       <div>

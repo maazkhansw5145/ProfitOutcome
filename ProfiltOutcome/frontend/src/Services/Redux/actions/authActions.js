@@ -2,7 +2,6 @@ import { LOGIN_SUCCESS, LOGOUT_SUCCESS, CLEAR_AUTH_MSG } from "../Types";
 import url from "../../../Config/URL";
 
 export const login = (code) => (dispatch) => {
-  console.log("CODE",code)
   fetch(`https://discord.com/api/oauth2/token`, {
     method: "POST",
     headers: {
@@ -20,7 +19,7 @@ export const login = (code) => (dispatch) => {
     resp.json().then((response) => {
       console.log("ACCESS TOKEN", response.access_token);
       fetch(
-        `https://discord.com/api/users/@me/guilds/1039545054127214612/roles`,
+        `https://discord.com/api/users/@me/guilds/1039545054127214612/member`,
         {
           method: "GET",
           headers: {
@@ -28,35 +27,33 @@ export const login = (code) => (dispatch) => {
           },
         }
       ).then((respo) => {
-        console.log("RESPO",respo)
         if (respo.status === 404) {
-          // window.location.href = "http://localhost:3000/403";
+          window.location.href = "http://localhost:3000/403";
         } else {
           respo.json().then((responseUser) => {
-            console.log("FINAL RESPONSE",responseUser)
-            // if (responseUser.premium_since === null) {
-            //   // window.location.href = "http://localhost:3000/400";
-            // } else {
-            //   const userObject = {
-            //     discordId: responseUser.user.id,
-            //     user: {
-            //       username: responseUser.user.username,
-            //       avatar: responseUser.user.avatar,
-            //     },
-            //   };
-            //   fetch(`${url}/user/save`, {
-            //     method: "POST",
-            //     headers: {
-            //       Accept: "application/json",
-            //       "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(userObject),
-            //   });
-            //   dispatch({
-            //     type: LOGIN_SUCCESS,
-            //     payload: userObject,
-            //   });
-            // }
+            if (responseUser.premium_since === null) {
+              window.location.href = "http://localhost:3000/400";
+            } else {
+              const userObject = {
+                discordId: responseUser.user.id,
+                user: {
+                  username: responseUser.user.username,
+                  avatar: responseUser.user.avatar,
+                },
+              };
+              fetch(`${url}/user/save`, {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userObject),
+              });
+              dispatch({
+                type: LOGIN_SUCCESS,
+                payload: userObject,
+              });
+            }
           });
         }
       });
