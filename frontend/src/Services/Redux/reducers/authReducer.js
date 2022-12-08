@@ -9,7 +9,6 @@ const initialState = {
   isAuthenticated: null,
   msg: null,
   user: null,
-  discordId: null,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -20,8 +19,7 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: true,
         msg: "Login Successfully",
-        user: action.payload.user,
-        discordId: action.payload.discordId,
+        user: action.payload,
       };
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
