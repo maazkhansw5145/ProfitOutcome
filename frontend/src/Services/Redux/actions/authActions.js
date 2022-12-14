@@ -3,17 +3,37 @@ import url from "../../../Config/URL";
 
 export const login = (data) => (dispatch) => {
   console.log("data", data);
-  fetch(`${url}/user/save`, {
-    method: "POST",
+  fetch(`${url}/user/check/${data.email}`, {
+    method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({data: data}),
-  });
-  dispatch({
-    type: LOGIN_SUCCESS,
-    payload: data,
+  }).then((res) => {
+    console.log("RES", res);
+    if (res.code === 404) {
+      fetch(`${url}/user/save`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: data }),
+      });
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data,
+      });
+    } else {
+      console.log(res);
+      res.json().then((response) => {
+        console.log(response);
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: response.user,
+        });
+      });
+    }
   });
 };
 
